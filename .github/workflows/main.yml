@@ -26,10 +26,9 @@ jobs:
           gradle-version: '8.10'
 
       - name: Build APK
-        working-directory: project/OzzyVoice_v2
-        run: |
-          chmod +x gradlew
-          ./gradlew :app:assembleDebug
+  working-directory: project/OzzyVoice_v2
+  run: |
+    gradle :app:assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
