@@ -8,12 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get project
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Extract project ZIP
-        run: |
-          unzip -o OzzyVoice_v2_Android_Project.zip -d project
+      - name: Extract project
+        run: unzip -o OzzyVoice_v2_Android_Project.zip -d project
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -21,14 +20,11 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.10'
-
       - name: Build APK
         working-directory: project/OzzyVoice_v2
-        run: gradle :app:assembleDebug
+        run: |
+          chmod +x gradlew || true
+          gradle :app:assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
